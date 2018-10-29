@@ -1,0 +1,24 @@
+获取最近四周的时间
+
+
+
+function getNear4Week()
+{
+    $current_year = date('Y');
+    $current_month = date('m');
+//    echo $current_year;
+//    echo $current_month;
+//    die();
+    $firstday = strtotime($current_year . '-' . $current_month . '-01');
+    //计算本月头一天的星期一
+    $monday = $firstday - 86400 * (date('N', $firstday) - 1);//计算第一个周一的日期
+    //由于每个月只有四周 让 $i 从 1 到 5 增加即可
+    for ($i = 1; $i <= 5; $i++) {
+        $start = date("Y-m-d", $monday + ($i - 1) * 86400 * 7);//起始周一
+        $end = date("Y-m-d", $monday + $i * 86399 * 7);//结束周日
+        if (date('m', $monday + $i * 86399 * 7) != $current_month) {
+            continue;
+        }
+        echo $start . '---' . $end . "<br/>";//开始结束放入数组
+    }
+}
