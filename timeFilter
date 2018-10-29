@@ -1,0 +1,63 @@
+//    获取搜索时间戳
+    protected function timeFilter($time)
+    {
+        // $now = strtotime('-6 days', time());
+        $now = time();
+        switch ($time) {
+            case 1;
+                $beginTime = date('Y-m-d 00:00:00', $now);
+                $endTime = date('Y-m-d 23:59:59', $now);
+                break;
+            case 2;
+                $time = strtotime('-1 day', $now);
+                $beginTime = date('Y-m-d 00:00:00', $time);
+                $endTime = date('Y-m-d 23:59:59', $now);
+                break;
+            case 3;
+                $time = strtotime('-2 day', $now);
+                $beginTime = date('Y-m-d 00:00:00', $time);
+                $endTime = date('Y-m-d 23:59:59', $now);
+                break;
+            case 4;
+                $time = '1' == date('w') ? strtotime('Monday', $now) : strtotime('last Monday', $now);
+                $beginTime = date('Y-m-d 00:00:00', $time);
+                $endTime = date('Y-m-d 23:59:59', strtotime('Sunday', $now));
+                break;
+            case 5;
+                $thisMonday = '1' == date('w') ? strtotime('Monday', $now) : strtotime('last Monday', $now);
+                // 上周一
+                $lastMonday = strtotime('-7 days', $thisMonday);
+                $beginTime = date('Y-m-d 00:00:00', $lastMonday);
+                $endTime = date('Y-m-d 23:59:59', strtotime('last sunday', $now));
+                break;
+            case 6;
+                $beginTime = date('Y-m-d 00:00:00', mktime(0, 0, 0, date('m', $now), '1', date('Y', $now)));
+                $endTime = date('Y-m-d 23:39:59', mktime(0, 0, 0, date('m', $now), date('t', $now), date('Y', $now)));
+                break;
+            case 7;
+                $time = strtotime('-2 month', $now);
+                $beginTime = date('Y-m-d 00:00:00', mktime(0, 0, 0, date('m', $time), 1, date('Y', $time)));
+                $endTime = date('Y-m-d 23:39:59', mktime(0, 0, 0, date('m', $now), date('t', $now), date('Y', $now)));
+                break;
+            case 8;
+                $time = strtotime('-5 month', $now);
+                $beginTime = date('Y-m-d 00:00:00', mktime(0, 0, 0, date('m', $time), 1, date('Y', $time)));
+                $endTime = date('Y-m-d 23:39:59', mktime(0, 0, 0, date('m', $now), date('t', $now), date('Y', $now)));
+                break;
+            case 9;
+                $beginTime = date('Y-m-d 00:00:00', mktime(0, 0, 0, 1, 1, date('Y', $now)));
+                $endTime = date('Y-m-d 23:39:59', mktime(0, 0, 0, 12, 31, date('Y', $now)));
+                break;
+            case 10;
+                $time = strtotime('-2 year', $now);
+                $beginTime = date('Y-m-d 00:00:00', mktime(0, 0, 0, 1, 1, date('Y', $time)));
+                $endTime = date('Y-m-d 23:39:59', mktime(0, 0, 0, 12, 31, date('Y')));
+                break;
+            case 0:
+                $time = strtotime('-6 day', $now);
+                $beginTime = date('Y-m-d 00:00:00', $time);
+                $endTime = date('Y-m-d 23:59:59', $now);
+                break;
+        }
+        return array(strtotime($beginTime), strtotime($endTime));
+    }
